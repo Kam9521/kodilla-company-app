@@ -20,8 +20,17 @@ app.use((req, res) => {
   res.status(404).send({ message: "Not found..." });
 });
 
-// connects our backend code with the database
-mongoose.connect("mongodb://0.0.0.0:27017/companyDB", {
+// Connects our backend code with the database
+
+const NODE_ENV = process.env.NODE_ENV;
+
+let dbUri = "mongodb://0.0.0.0:27017/companyDB";
+
+if (NODE_ENV === "test") {
+  dbUri = "mongodb://0.0.0.0:27017/companyDBtest";
+}
+
+mongoose.connect(dbUri, {
   useNewUrlParser: true,
 });
 
@@ -33,6 +42,8 @@ db.once("open", () => {
 
 db.on("error", (err) => console.log("Error " + err));
 
-app.listen("8000", () => {
+const server = app.listen("8000", () => {
   console.log("Server is running on port: 8000");
 });
+
+module.exports = server;
