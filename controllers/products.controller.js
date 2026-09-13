@@ -49,7 +49,7 @@ exports.create = async (req, res) => {
 
     await newProduct.save();
 
-    res.json({ message: "OK" });
+    res.json(newProduct);
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -67,7 +67,7 @@ exports.update = async (req, res) => {
 
       await product.save();
 
-      res.json({ message: "OK" });
+      res.json(product);
     } else {
       res.status(404).json({ message: "Not found..." });
     }
@@ -83,7 +83,7 @@ exports.remove = async (req, res) => {
     if (product) {
       await Product.deleteOne({ _id: req.params.id });
 
-      res.json({ message: "OK" });
+      res.json(product);
     } else {
       res.status(404).json({ message: "Not found..." });
     }

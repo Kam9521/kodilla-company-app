@@ -52,7 +52,7 @@ exports.create = async (req, res) => {
 
     await newEmployee.save();
 
-    res.json({ message: "OK" });
+    res.json(newEmployee);
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -71,7 +71,7 @@ exports.update = async (req, res) => {
 
       await employee.save();
 
-      res.json({ message: "OK" });
+      res.json(employee);
     } else {
       res.status(404).json({ message: "Not found..." });
     }
@@ -87,7 +87,7 @@ exports.remove = async (req, res) => {
     if (employee) {
       await Employee.deleteOne({ _id: req.params.id });
 
-      res.json({ message: "OK" });
+      res.json(employee);
     } else {
       res.status(404).json({ message: "Not found..." });
     }
